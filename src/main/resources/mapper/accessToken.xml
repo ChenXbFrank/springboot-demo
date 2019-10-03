@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--这里不仅要写哪一个包，还有标明具体的哪一个dao，又被坑了一会-->
+<mapper namespace="com.pls.accesstoken.dao.AccessTokenDao">
+
+    <!--AccessTokens 列表 和对象属性 一一对应 -->
+    <sql id="accessToken">
+        APPID as appid,
+        ACCESS_TOKEN as accessToken,
+        SAVE_TIME as saveTime,
+        SELLER_PUBLIC_NAME as sellerPublicName
+    </sql>
+
+    <!--根据appid查询单个对象-->
+    <select id="findByAppId"  parameterType="java.lang.String" resultType="com.pls.accesstoken.model.AccessTokens">
+        select
+        <include refid="accessToken"/>
+        from TB_ACCESS_TOKENS where appid = #{appid}
+    </select>
+
+    <!--根据appid查询单个对象-->
+    <select id="findAccessByAppId" parameterType="java.lang.String" resultType="java.lang.String">
+        select access_token from TB_ACCESS_TOKENS where appid = #{appid}
+    </select>
+
+</mapper>

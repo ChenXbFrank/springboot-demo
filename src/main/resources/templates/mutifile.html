@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<meta charset="UTF-8">
+<title>thymeleaf FileUpload</title>
+</head>
+<body>
+	<h1 th:inline="text">Hello thymeleaf FileUpload</h1>
+	<form action="/mutiFileUpload" method="post" enctype="multipart/form-data">
+		<p>选择文件1：<input type="file" name="filename"/></p>
+		<p>选择文件2：<input type="file" name="filename"/></p>
+		<p>选择文件3：<input type="file" name="filename"/></p>
+		<p><input type="submit" value="上传"/></p>
+	</form>
+</body>
+</html>

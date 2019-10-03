@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--这里不仅要写哪一个包，还有标明具体的哪一个dao，又被坑了一会-->
+<mapper namespace="com.pls.accesstoken.dao.UserDao">
+
+    <!--User 列表名和对象属性一一对应 -->
+    <sql id="user">
+        ID as id,
+        AGE as age,
+        NAME as name
+    </sql>
+
+    <!--这是返回的集合的属性-->
+    <resultMap id="userBaseMap" type="com.pls.accesstoken.model.User">
+        <id column="ID" property="id" />
+        <result column="NAME" property="name" />
+        <result column="AGE" property="age" />
+    </resultMap>
+
+    <!--根据名字模糊查询-->
+    <select id="getUserListByName"  parameterType="java.lang.String" resultMap="userBaseMap">
+        select
+              <include refid="user"/>
+        from TB_USER where NAME  like '%'||#{name}||'%'
+    </select>
+
+    <!-- 对应userDao中的insertUser方法，  -->
+    <insert id="insertUser" parameterType="com.pls.accesstoken.model.User">
+        insert into TB_USER(id, name, age) values (#{id}, #{name}, #{age})
+    </insert>
+
+    <!-- 对应userDao中的updateUserByName方法 -->
+    <update id="updateUserByName" parameterType="com.pls.accesstoken.model.User">
+        update TB_USER set id = #{id}, age = #{age} where name = #{name}
+    </update>
+
+    <!-- 对应userDao中的deleteUserById方法 -->
+    <delete id="deleteUserById" parameterType="java.lang.String">
+        delete from TB_USER where id = #{id}
+    </delete>
+
+</mapper>
